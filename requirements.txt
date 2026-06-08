@@ -1,0 +1,5 @@
+# SIGAP — runtime dependencies (Python 3.10+; developed on 3.14)
+numpy>=1.24
+scipy>=1.10          # cKDTree, used ONLY for nearest-neighbour wiring in the generator
+matplotlib>=3.7      # plotting the benchmark figures and the demo route map
+fpdf2>=2.7           # OPTIONAL: only needed to rebuild report/Report.pdf
