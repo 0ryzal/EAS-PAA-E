@@ -674,6 +674,84 @@ def build():
         "and the README.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
     pdf.set_text_color(0)
 
+    # ===================== APPENDIX =====================
+    pdf.add_page()
+    pdf.h1("Appendix A  Full pseudocode")
+    pdf.body("Reference pseudocode for the three implementations (see `src/` for the "
+             "actual, documented Python). All three share the relax step "
+             "`if new < dist[v]: dist[v] = new; parent[v] = u`.")
+    pdf.code(
+        "DIJKSTRA(G, w, s, t):\n"
+        "    for each v: dist[v] = +inf; settled[v] = false; parent[v] = nil\n"
+        "    dist[s] = 0;  PQ = min-heap; PQ.push(0, s)\n"
+        "    while PQ not empty:\n"
+        "        (d, u) = PQ.pop_min()\n"
+        "        if settled[u]: continue            # lazy-deleted stale entry\n"
+        "        settled[u] = true\n"
+        "        if u == t: break                   # early exit (point-to-point)\n"
+        "        for (v, c) in adj[u]:\n"
+        "            if d + c < dist[v]:\n"
+        "                dist[v] = d + c; parent[v] = u; PQ.push(dist[v], v)\n"
+        "    return dist, parent",
+        caption="Algorithm A — Dijkstra (binary heap, lazy deletion)")
+    pdf.code(
+        "BELLMAN-FORD(G, w, s):\n"
+        "    for each v: dist[v] = +inf; parent[v] = nil\n"
+        "    dist[s] = 0\n"
+        "    repeat |V|-1 times:\n"
+        "        changed = false\n"
+        "        for each arc (u, v, c):\n"
+        "            if dist[u] + c < dist[v]:\n"
+        "                dist[v] = dist[u] + c; parent[v] = u; changed = true\n"
+        "        if not changed: break              # converged early\n"
+        "    for each arc (u, v, c):                # negative-cycle check\n"
+        "        if dist[u] + c < dist[v]: report negative cycle\n"
+        "    return dist, parent",
+        caption="Algorithm B — Bellman-Ford (early-stop + negative-cycle check)")
+    pdf.code(
+        "A-STAR(G, w, s, t):\n"
+        "    for each v: g[v] = +inf; settled[v] = false; parent[v] = nil\n"
+        "    g[s] = 0;  PQ = min-heap; PQ.push(h(s, t), s)\n"
+        "    while PQ not empty:\n"
+        "        (_, u) = PQ.pop_min()\n"
+        "        if settled[u]: continue\n"
+        "        settled[u] = true\n"
+        "        if u == t: break\n"
+        "        for (v, c) in adj[u]:\n"
+        "            if g[u] + c < g[v]:\n"
+        "                g[v] = g[u] + c; parent[v] = u\n"
+        "                PQ.push(g[v] + h(v, t), v)  # f = g + admissible heuristic\n"
+        "    return g, parent\n"
+        "h(v, t) = euclidean(v, t)                  # straight-line lower bound",
+        caption="Algorithm C — A* (informed search)")
+
+    pdf.h1("Appendix B  Raw benchmark data & environment")
+    pdf.body("Full per-size record from `bench/results/timings.csv` "
+             f"(seed = {big['seed']}, 5-run median timings). `passes` = Bellman-Ford "
+             "relaxation passes; `A* exp` / `Dij set` = nodes expanded / settled.")
+    raw_rows = []
+    for r in rows:
+        raw_rows.append([r["n"], r["m"], r["dijkstra_ms"], r["bellman_ms"],
+                         r["astar_ms"], r["bellman_passes"],
+                         r["astar_expanded"], r["dijkstra_settled"],
+                         f"{float(r['cost_dijkstra']):.2f}"])
+    pdf.table(
+        ["n", "m", "Dij ms", "BF ms", "A* ms", "passes", "A* exp", "Dij set", "cost"],
+        raw_rows, [16, 20, 20, 22, 18, 18, 18, 18, 22],
+        align=["R"] * 9)
+    pdf.body("**Reproduce:** `./run_benchmark.sh` (or "
+             "`python -m bench.benchmark --sizes 100,300,1000,3000,10000 "
+             "--repeats 5 --seed 7`), then `python -m bench.plot_results`.")
+    pdf.bullets([
+        "**Environment.** CPython 3.14.2, macOS (darwin). numpy, scipy, matplotlib "
+        "for generation/plotting; algorithmic core is pure Python (no compiled "
+        "extensions).",
+        "**Timing method.** `time.perf_counter()` around each full call; the median "
+        "of 5 runs is reported to suppress OS jitter.",
+        "**Reproducibility.** One seeded numpy `default_rng(seed)` drives map "
+        "generation; a given (n, seed) reproduces the identical graph and query.",
+    ])
+
     out = os.path.join(HERE, "Report.pdf")
     pdf.output(out)
     print(f"Wrote {out}  ({pdf.page_no()} pages)")
