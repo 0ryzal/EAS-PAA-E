@@ -39,8 +39,15 @@ SUBTITLE = "Dijkstra vs. Bellman-Ford vs. A* — Design, Proof, Build, Measure"
 COURSE = "EF234405 — Design & Analysis of Algorithms"
 CLASS_NAME = "Class: E"
 DATE_STR = "Surabaya, 18 June 2026"
+GITHUB_URL = "https://github.com/0ryzal/EAS-PAA-E"
 MEMBERS = [
-    ("Muhammad Rizal Hafiyyan", "50252210xx")
+    ("Muhammad Rizal Hafiyyan", "5025231212"),
+]
+CONTRIB = [
+    ("Muhammad Rizal Hafiyyan", "100%",
+     "Design, formal model & architecture; Dijkstra (core) + MinHeap; "
+     "Bellman-Ford baseline; A* (bonus); CLI demo & route visualiser; "
+     "correctness proof; complexity analysis; benchmark harness, plots & report."),
 ]
 # ===========================================================================
 

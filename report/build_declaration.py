@@ -19,18 +19,14 @@ FONT_DIR = os.path.join(matplotlib.get_data_path(), "fonts", "ttf")
 
 # Mirror the team details from build_report.py — EDIT BEFORE SUBMITTING.
 MEMBERS = [
-    ("Muhammad Rizal Hafiyyan", "50252210xx"),
-    ("<Member 2 Full Name>", "50252210xx"),
-    ("<Member 3 Full Name>", "50252210xx"),
+    ("Muhammad Rizal Hafiyyan", "5025231212"),
 ]
 CITY_DATE = "Surabaya, 18 June 2026"
 CONTRIB = [
-    "Muhammad Rizal Hafiyyan — 34%: Model & architecture; Dijkstra (core) + "
-    "MinHeap; correctness proof.",
-    "<Member 2> — 33%: Bellman-Ford baseline; A* (bonus); CLI demo & route "
-    "visualiser.",
-    "<Member 3> — 33%: Complexity analysis; benchmark harness, plots & report; "
-    "evaluation.",
+    "Muhammad Rizal Hafiyyan — 100%: Design, formal model & architecture; "
+    "Dijkstra (core) + MinHeap; Bellman-Ford baseline; A* (bonus); CLI demo & "
+    "route visualiser; correctness proof; complexity analysis; benchmark harness, "
+    "plots & report.",
 ]
 
 PLEDGE = (
