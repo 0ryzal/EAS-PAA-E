@@ -37,21 +37,10 @@ FONT_DIR = os.path.join(matplotlib.get_data_path(), "fonts", "ttf")
 TITLE = "SIGAP: Fastest-Route Emergency Dispatch on City Road Networks"
 SUBTITLE = "Dijkstra vs. Bellman-Ford vs. A* — Design, Proof, Build, Measure"
 COURSE = "EF234405 — Design & Analysis of Algorithms"
-CLASS_NAME = "Class: <D / IUP / E / F / G>"
+CLASS_NAME = "Class: E"
 DATE_STR = "Surabaya, 18 June 2026"
-GITHUB_URL = "https://github.com/<your-username>/sigap-dispatch"
 MEMBERS = [
-    ("Muhammad Rizal Hafiyyan", "50252210xx"),
-    ("<Member 2 Full Name>", "50252210xx"),
-    ("<Member 3 Full Name>", "50252210xx"),
-]
-CONTRIB = [
-    ("Muhammad Rizal Hafiyyan", "34%",
-     "Model & architecture; Dijkstra (core) + MinHeap; correctness proof."),
-    ("<Member 2>", "33%",
-     "Bellman-Ford baseline; A* (bonus); CLI demo & route visualiser."),
-    ("<Member 3>", "33%",
-     "Complexity analysis; benchmark harness, plots & report; evaluation."),
+    ("Muhammad Rizal Hafiyyan", "50252210xx")
 ]
 # ===========================================================================
 
